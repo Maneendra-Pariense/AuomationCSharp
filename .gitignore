@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/AutomationNuit/bin
+/AutomationNuit/obj
+/.vs
+/Framework/bin/Debug/net8.0
+/Framework/obj
