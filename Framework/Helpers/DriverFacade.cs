@@ -19,26 +19,24 @@ namespace Framework.Helpers
         {
             _configHelper = UnityContainerFactory.GetContainer().Resolve<ConfigHelper>();
             _setting = _configHelper._setting;
-            LoadDriver();
+            _driver = LoadDriver();
             _timeout = _setting.Timeout;
             disposableContainer.AddDisposableObject(this);
+            GoToUrl(_setting.AppUrl);
         }
 
-        private void LoadDriver()
+        private IWebDriver LoadDriver()
         {
             var browser = _setting.Browser;
 
             switch (browser)
             {
                 case "firefox":
-                    _driver = GetFirefoxDriver();
-                    break;
+                    return GetFirefoxDriver();
                 case "chrome":
-                    _driver = GetChromeDriver();
-                    break;
+                    return GetChromeDriver();
+                default: return _driver;
             }
-
-            GoToUrl(_setting.AppUrl);
 
         }
 
@@ -65,7 +63,7 @@ namespace Framework.Helpers
 
         public IWebElement WaitUntilElementVisible(By by)
         {
-            return this.WaitUntilElementVisible(by, _timeout);
+            return WaitUntilElementVisible(by, _timeout);
         }
 
         public IWebElement WaitUntilElementVisible(By by, int timeout)
@@ -76,7 +74,7 @@ namespace Framework.Helpers
                 typeof(NoSuchElementException),
                 typeof(StaleElementReferenceException)
             });
-            return webDriverWait.Until(_driver => !_driver.FindElement(by).Displayed ? null : _driver?.FindElement(by));
+            return webDriverWait.Until(_driver => !_driver.FindElement(by).Displayed ? null : _driver.FindElement(by));
         }
 
 

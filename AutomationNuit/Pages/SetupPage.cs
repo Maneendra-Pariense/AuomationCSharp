@@ -22,7 +22,6 @@ namespace AutomationNunit.Pages
             unityContainer.RegisterType<DisposableContainer>(TypeLifetime.Singleton);
             unityContainer.RegisterType<DriverFacade>(TypeLifetime.PerThread);
         }
-
         
     }
 }

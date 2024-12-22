@@ -1,5 +1,6 @@
 ﻿using Framework.Enums;
 using Framework.Helpers;
+using Microsoft.Extensions.Configuration;
 
 namespace AutomationNunit.Pages
 {
@@ -15,7 +16,7 @@ namespace AutomationNunit.Pages
 
 
         public void GoToUrl()
-        {          
+        {           
             driverFacade.GoToUrl("https://www.google.com");
         }
 
@@ -34,6 +35,15 @@ namespace AutomationNunit.Pages
         {
             search.SendKeys(searchTearm);
         }
+
+        public void GetTestData()
+        {
+            var testData = _testDataManager.GetTestData("TestData1");
+            var test = testData.GetValue<string>("Test");
+            Console.WriteLine(test);
+        }
+
         
+
     }
 }
