@@ -1,5 +1,6 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
+using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Support.UI;
 using Unity;
@@ -29,12 +30,14 @@ namespace Framework.Helpers
         {
             var browser = _setting.Browser;
 
-            switch (browser)
+            switch (browser.ToLower())
             {
                 case "firefox":
                     return GetFirefoxDriver();
                 case "chrome":
                     return GetChromeDriver();
+                case "edge":
+                    return GetEdgeDriver();
                 default: return _driver;
             }
 
@@ -50,6 +53,12 @@ namespace Framework.Helpers
         {
             new WebDriverManager.DriverManager().SetUpDriver(new FirefoxConfig());
             return new FirefoxDriver();
+        }
+
+        private IWebDriver GetEdgeDriver()
+        {
+            new WebDriverManager.DriverManager().SetUpDriver(new EdgeConfig());
+            return new EdgeDriver();
         }
 
         public void GoToUrl(string url)

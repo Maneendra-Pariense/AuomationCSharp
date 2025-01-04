@@ -6,14 +6,12 @@ namespace AutomationNunit.Pages
 {
     public class LoginPage: BasePage
     {
-
-        public LocatorHelper Search = new LocatorHelper("q", LocatorType.Name);
+        #region Locators
         public LocatorHelper SkipSignInButton = new LocatorHelper("btn2", LocatorType.Id);
-       
-
-        private IWebElement search => driverFacade.WaitUntilElementVisible(Search.GetBy());
         private IWebElement skipSignInButton => driverFacade.WaitUntilElementVisible(SkipSignInButton.GetBy());
+        #endregion
 
+        #region Methods
 
         public void GoToUrl()
         {           
@@ -23,18 +21,7 @@ namespace AutomationNunit.Pages
         public string GetTitle()
         {
             return driverFacade.GetDriver().Title;
-        }
-
-        public void ClickOnSearch()
-        {
-            //search.Click();
-            skipSignInButton.Click();
-        }
-
-        public void EnterInSearch(string searchTearm)
-        {
-            search.SendKeys(searchTearm);
-        }
+        }        
 
         public void GetTestData()
         {
@@ -43,7 +30,12 @@ namespace AutomationNunit.Pages
             Console.WriteLine(test);
         }
 
-        
+        public void ClickOnSkipSignInButton()
+        {
+            skipSignInButton.Click();
+        }
+
+        #endregion
 
     }
 }
